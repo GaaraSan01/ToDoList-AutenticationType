@@ -13,9 +13,9 @@ router.post('/login', MiddlewareLoginUser, loginUser);
 router.get('/home', getUsers);
 
 //Router Task
-router.post('/createdTask', MiddlewareCreatedTask, createdTask);
+router.post('/createdTask', MiddlewareVerifyToken, MiddlewareCreatedTask, createdTask);
 router.get('/tasks', MiddlewareVerifyToken, getTasks);
-router.delete('/deleteTask/:id', deleteTask);
-router.put('/updateTask/:id', updateTask);
+router.delete('/deleteTask/:id', MiddlewareVerifyToken, deleteTask);
+router.put('/updateTask/:id', MiddlewareVerifyToken, updateTask);
 
 export default router;

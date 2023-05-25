@@ -47,6 +47,7 @@ export const getTasks = async (req: Request, res: Response) => {
 
 export const deleteTask = async (req: Request, res: Response) => {
 	const { id } = req.params;
+
 	try {
 		await PClient.task.delete({
 			where: {
