@@ -43,7 +43,6 @@ export const MiddlewareVerifyToken = (req: Request, res: Response, next: NextFun
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 		const { id } = decoded as DecodedToken;
-		console.log(id);
 		req.body.userId = id;
 
 		next();
