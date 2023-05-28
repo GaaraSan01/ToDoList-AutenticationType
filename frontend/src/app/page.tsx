@@ -1,9 +1,12 @@
-import {globalStyles} from './styles/globalStyles'
+'use client';
+import * as S from './styles/style';
+import FormLogin from './components/login/formLogin';
 
 export default function Home() {
+
   return (
-    <main>
-      <h1>Hellow Word - Start To do List</h1>
-    </main>
+    <S.main>
+      <FormLogin/>
+    </S.main>
   )
 }
