@@ -50,7 +50,7 @@ export const Button = styled.button`
     }
 `;
 
-export const Link = styled.a`
+export const Link = styled.p`
     color: var(--primary-color);
     font-weight: bold;
 `;

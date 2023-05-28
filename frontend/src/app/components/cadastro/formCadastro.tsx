@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import * as S from './style'
 
 const CadastroForm = () => {
@@ -18,7 +19,8 @@ const CadastroForm = () => {
                     <S.Input type='password' placeholder='Digite sua senha...'/>
                 </S.Div>
                 <S.Div>
-                    <S.Link href='/'>Voltar</S.Link>
+                    <Link href={"/"}><S.Link>Voltar</S.Link></Link>
+                    
                     <S.Button>Cadastrar</S.Button>
                 </S.Div>
             </S.Form>

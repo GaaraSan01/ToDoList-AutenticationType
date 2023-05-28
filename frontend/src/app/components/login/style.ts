@@ -21,6 +21,7 @@ export const Div = styled.div`
     gap: 5pc;
 `;
 
+
 export const Input = styled.input`
     background: var(--terciary-color);
     width: 100%;
@@ -50,7 +51,7 @@ export const Button = styled.button`
     }
 `;
 
-export const Link = styled.a`
+export const Link = styled.p`
     color: var(--primary-color);
     font-weight: bold;
 `;

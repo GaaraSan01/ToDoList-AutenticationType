@@ -3,8 +3,6 @@ import StyledJsxRegistry from './registry';
 import { createGlobalStyle } from 'styled-components';
 import metadata from './components/metadata';
 
-
-
 const GlobalStyles = createGlobalStyle`
   *{
     margin: 0;
