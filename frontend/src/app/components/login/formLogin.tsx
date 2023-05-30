@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import * as S from './style';
-import { string, z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {loginData} from '../../types/typesUser';
-import baseUrl from '@/app/api/_api'
-
+import { string, z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthContext } from '../isAutencated/authContext';
+import { useContext } from 'react';
 
 const FormLogin = () => {
+
     const loginUserSchema = z.object({
         email: string().nonempty('Preencha o campo email').email('Email invalido!').toLowerCase(),
         password: string().min(6, 'Minimo 6 caracteres').nonempty('O campo senha é obrigatório')
@@ -19,16 +19,8 @@ const FormLogin = () => {
         resolver: zodResolver(loginUserSchema)
     })
 
-    const loginUser = async (data: loginData) => {
-        try {
-            const response = await baseUrl.post('/login', data)
-            const dataApi = await response.data
-            console.log(dataApi)
-            return dataApi
-        } catch (error) {
-            console.log(error)
-        }
-    }
+
+    const { loginUser } = useContext(AuthContext)
 
     return(
         <S.Form onSubmit={handleSubmit(loginUser)}>

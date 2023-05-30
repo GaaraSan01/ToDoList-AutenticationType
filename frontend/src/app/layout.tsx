@@ -2,6 +2,7 @@
 import StyledJsxRegistry from './registry';
 import { createGlobalStyle } from 'styled-components';
 import metadata from './components/metadata';
+import { AuthProvider } from './components/isAutencated/authContext';
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -31,7 +32,9 @@ export default function RootLayout({
       <body>
         <StyledJsxRegistry>
           <GlobalStyles />
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </StyledJsxRegistry>
       </body>
     </html>
