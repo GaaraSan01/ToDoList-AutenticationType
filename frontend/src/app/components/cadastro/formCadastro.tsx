@@ -4,8 +4,8 @@ import { string, z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createdData } from '@/app/types/typesUser'
-
-
+import baseUrl from '@/app/api/_api'
+import { useRouter } from 'next/navigation'
 
 const CadastroForm = () => {
     const createUserSchema = z.object({
@@ -27,8 +27,18 @@ const CadastroForm = () => {
         resolver: zodResolver(createUserSchema)
     })
 
-    const createUser = (data: createdData) => {
-        console.log(JSON.stringify(data))
+    const { push } = useRouter()
+
+    const createUser = async (data: createdData) => {
+        try {
+            const response = await baseUrl.post('/cadastro', data)
+            const dataCadastro = await response.data
+            const { message } = await dataCadastro
+            console.log(message)
+            push('/')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return(

@@ -2,7 +2,10 @@
 import StyledJsxRegistry from './registry';
 import { createGlobalStyle } from 'styled-components';
 import metadata from './components/metadata';
-import { AuthProvider } from './components/isAutencated/authContext';
+import { usePathname } from 'next/navigation';
+import VerifyRoutes from './functions/verifyRoutes';
+import PrivateRouter from './components/private/privateRouter';
+
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -22,6 +25,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const path = usePathname()
+  const isPublicPage = VerifyRoutes(path)
   
   return (
     <html lang="pt-br">
@@ -32,9 +38,10 @@ export default function RootLayout({
       <body>
         <StyledJsxRegistry>
           <GlobalStyles />
-          <AuthProvider>
-            {children}
-          </AuthProvider>
+            {isPublicPage && children}
+            {!isPublicPage && (
+              <PrivateRouter>{children}</PrivateRouter>
+            )}
         </StyledJsxRegistry>
       </body>
     </html>
