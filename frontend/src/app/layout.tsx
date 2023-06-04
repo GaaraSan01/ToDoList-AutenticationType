@@ -5,6 +5,7 @@ import metadata from './components/metadata';
 import { usePathname } from 'next/navigation';
 import VerifyRoutes from './functions/verifyRoutes';
 import PrivateRouter from './components/private/privateRouter';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -20,6 +21,9 @@ const GlobalStyles = createGlobalStyle`
     --terciary-color: #aad8d3;
   }
 `;
+
+const queryClient = new QueryClient()
+
 export default function RootLayout({
   children,
 }: {
@@ -28,6 +32,7 @@ export default function RootLayout({
 
   const path = usePathname()
   const isPublicPage = VerifyRoutes(path)
+
   
   return (
     <html lang="pt-br">
@@ -38,10 +43,12 @@ export default function RootLayout({
       <body>
         <StyledJsxRegistry>
           <GlobalStyles />
+          <QueryClientProvider client={queryClient}>
             {isPublicPage && children}
             {!isPublicPage && (
               <PrivateRouter>{children}</PrivateRouter>
             )}
+          </QueryClientProvider>
         </StyledJsxRegistry>
       </body>
     </html>

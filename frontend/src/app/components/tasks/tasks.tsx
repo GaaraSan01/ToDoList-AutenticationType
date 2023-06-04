@@ -1,17 +1,17 @@
 import * as S from './style';
 import { MdDelete } from "react-icons/md"
 import { FaEdit } from "react-icons/fa"
+import { TypeTask } from '@/app/types/typesTask';
 
-
-const Task = () => {
+const Task = ({title, description}: TypeTask) => {
     return(
         <>
             <S.Container>
                 <S.Div>
-                    <S.Title>Test</S.Title>
+                    <S.Title>{title}</S.Title>
                 </S.Div>
                 <S.Div>
-                    <S.P>Testando 123</S.P>
+                    <S.P>{description}</S.P>
                 </S.Div>
                 <S.Div>
                     <S.Select>
