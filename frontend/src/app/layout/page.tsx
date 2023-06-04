@@ -16,8 +16,7 @@ const ToDoList = () => {
                 <Menu />
                 <FormTask/>
                 {isLoading && <Loading />}
-                {!isLoading && data.map((props: T.dataTask) => <Task key={props.id} title={props?.title} description={props?.description}/>)}
-
+                {data && data.map((props: T.dataTask) => <Task key={props?.id} title={props?.title} description={props?.description}/>)}
             </S.Container>
         </>
     )

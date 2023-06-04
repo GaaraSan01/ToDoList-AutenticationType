@@ -59,13 +59,13 @@ export const loginUser = async (req: Request, res: Response) => {
 	});
 
 	if(!user){
-		res.status(401).json({MessageError: 'Usuário não encontrado'});
+		return res.status(401).json({MessageError: 'Usuário não encontrado'});
 	}
 
 	const verifyPassword = user?.password && await bycrypt.compare(password, user.password);
 
 	if(!verifyPassword){
-		res.status(401).json({MessageError: 'Senha incorreta!'});
+		return res.status(401).json({MessageError: 'Senha incorreta!'});
 	}
 
 	const token = jwt.sign({
