@@ -11,14 +11,18 @@ const ToDoList = () => {
     const {data, isLoading} = useTask()
 
     return(
-        <>
-            <S.Container>
-                <Menu />
-                <FormTask/>
-                {isLoading && <Loading />}
-                {data && data.map((props: T.dataTask) => <Task key={props?.id} title={props?.title} description={props?.description}/>)}
-            </S.Container>
-        </>
+        <S.Container>
+            <Menu />
+            <FormTask/>
+            {isLoading && <Loading />}
+            {!isLoading && data?.map((props: T.dataTask) => <Task 
+                key={props.id} 
+                id={props.id} 
+                title={props.title} 
+                description={props.description} 
+                status={props.status}
+            />)}
+        </S.Container>
     )
 }
 

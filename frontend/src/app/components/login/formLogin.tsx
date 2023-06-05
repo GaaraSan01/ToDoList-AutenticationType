@@ -3,10 +3,8 @@ import * as S from './style';
 import { string, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { setCookie } from 'nookies';
-import baseUrl from '@/app/api/_api'
 import { loginData } from '@/app/types/typesUser';
-import { useRouter } from 'next/navigation';
+import { LoginTodoList } from '@/app/hooks/useLogin';
 
 
 const FormLogin = () => {
@@ -22,32 +20,18 @@ const FormLogin = () => {
         resolver: zodResolver(loginUserSchema)
     })
 
-    const { push } = useRouter()
+    const {mutate, isLoading} = LoginTodoList()
 
     async function loginUser ({email, password}: loginData) {
-        try {
-            const response = await baseUrl.post('/login', {
-                email,
-                password
-            })
-            const {token} = await response.data
-            
-            setCookie(undefined, 'todo-token', token, {
-                maxAge: 60 * 60 * 1 // 1h hora
-            })
-
-            push('/layout')            
-        } catch (error) {
-            console.log(error)
-            alert('Usuário ou senha incorretos!')
-        }
+        
+        mutate({email,password})
     }
 
     return(
         <S.Form onSubmit={handleSubmit(loginUser)}>
             <S.Title>Login</S.Title>
             <S.Div>
-               <S.Input 
+               <S.Input
                     type='email' 
                     placeholder='Digite seu email...'
                     {...register('email')}
@@ -68,6 +52,7 @@ const FormLogin = () => {
                 </Link>
                <S.Button>Continue</S.Button>
             </S.Div>
+            {isLoading && <p>Carregando...</p>}
         </S.Form>
     )
 }

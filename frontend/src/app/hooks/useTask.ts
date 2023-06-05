@@ -13,4 +13,4 @@ export const useTask = () => {
         queryKey: ['task-data']
     })
     return query
-} 
+}
