@@ -4,21 +4,18 @@ export const Form = styled.form`
     height: 400px;
     width: 320px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background: var(--secundary-color);
+    padding: 30px 0 0;
 `;
 
 export const Div = styled.div`
     height: 40px;
     width: 90%;
-    margin: 10px;
+    margin: auto;
+    margin-top: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 5pc;
+    justify-content: space-around;
 `;
 
 export const Input = styled.input`
@@ -58,4 +55,10 @@ export const Link = styled.p`
 export const Title = styled.h1`
     color: var(--primary-color);
     margin-bottom: 10px;
+    text-align: center;
+`
+export const Span = styled.span`
+    color: red;
+    font-size: 12px;
+    padding-left: 25px;
 `

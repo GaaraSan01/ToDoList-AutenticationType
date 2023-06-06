@@ -4,23 +4,19 @@ export const Form = styled.form`
     height: 350px;
     width: 320px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background: var(--secundary-color);
+    padding: 30px 0 0;
 `;
 
 export const Div = styled.div`
     height: 40px;
     width: 90%;
-    margin: 10px;
+    margin: auto;
+    margin-top: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 5pc;
+    justify-content: space-around;
 `;
-
 
 export const Input = styled.input`
     background: var(--terciary-color);
@@ -59,4 +55,34 @@ export const Link = styled.p`
 export const Title = styled.h1`
     color: var(--primary-color);
     margin-bottom: 10px;
+    text-align: center;
+`
+
+export const Checkedbox = styled.input`
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 2px;
+`
+
+export const Label = styled.label`
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--primary-color);
+    cursor: pointer;
+`
+
+export const DivSeePassword = styled.div`
+    height: 20px;
+    margin: 10px auto;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+    padding: 0 5px 0;
+`
+export const Span = styled.span`
+    color: red;
+    font-size: 12px;
+    padding-left: 25px;
 `

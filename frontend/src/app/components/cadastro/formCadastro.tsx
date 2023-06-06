@@ -18,7 +18,11 @@ const CadastroForm = () => {
         email: string().nonempty('O campo email é obrigatório')
         .email('Email invalido').toLowerCase(),
         password: string().min(6, 'O minimo é 6 caracteres')
-        .nonempty('O campo senha é obrigatório')
+        .nonempty('O campo senha é obrigatório'),
+        confirmPassword: string().min(6).nonempty('Confirme sua senha')
+    }).refine(data => data.password === data.confirmPassword, {
+        message: 'As senhas não conferem!',
+        path: ['confirmPassword']
     })
 
     type CreateUserFormData = z.infer<typeof createUserSchema>
@@ -52,7 +56,7 @@ const CadastroForm = () => {
                         {...register('name')}
                     />
                 </S.Div>
-                {errors.name && <span>{errors.name.message}</span>}
+                {errors.name && <S.Span>{errors.name.message}</S.Span>}
                 <S.Div>
                     <S.Input 
                         type='email' 
@@ -60,7 +64,7 @@ const CadastroForm = () => {
                         {...register('email')}
                     />
                 </S.Div>
-                {errors.email && <span>{errors.email.message}</span>}
+                {errors.email && <S.Span>{errors.email.message}</S.Span>}
                 <S.Div>
                     <S.Input 
                         type='password' 
@@ -68,13 +72,15 @@ const CadastroForm = () => {
                         {...register('password')}
                     />
                 </S.Div>
+                {errors.password && <S.Span>{errors.password.message}</S.Span>}
                 <S.Div>
                     <S.Input 
                         type='password' 
                         placeholder='Confirme sua senha'
-                        {...register('password')}
+                        {...register('confirmPassword')}
                     />
                 </S.Div>
+                {errors.confirmPassword && <S.Span>{errors.confirmPassword.message}</S.Span>}
                 <S.Div>
                     <Link href={"/"}><S.Link>Voltar</S.Link></Link>
                     <S.Button>Cadastrar</S.Button>

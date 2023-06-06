@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginData } from '@/app/types/typesUser';
 import { LoginTodoList } from '@/app/hooks/useLogin';
-
+import { useState } from 'react';
 
 const FormLogin = () => {
 
@@ -19,12 +19,17 @@ const FormLogin = () => {
     const {register, handleSubmit, formState: {errors}} = useForm<LoginUserData>({
         resolver: zodResolver(loginUserSchema)
     })
+    const [showPass, setShowPass] = useState(true)
 
     const {mutate, isLoading} = LoginTodoList()
 
     async function loginUser ({email, password}: loginData) {
         
         mutate({email,password})
+    }
+
+    const checkShowPass = () => {
+        setShowPass(!showPass)
     }
 
     return(
@@ -37,22 +42,29 @@ const FormLogin = () => {
                     {...register('email')}
                /> 
             </S.Div>
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && <S.Span>{errors.email.message}</S.Span>}
             <S.Div>
                <S.Input 
-                    type='password' 
+                    type={showPass ? 'password' : 'text'}
                     placeholder='Digite sua senha...'
                     {...register('password')}
                /> 
             </S.Div>
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <S.Span>{errors.password.message}</S.Span>}
+            <S.DivSeePassword>
+                <S.Checkedbox 
+                    type='checkbox' 
+                    id='showPassword'
+                    onChange={checkShowPass}
+                />
+                <S.Label htmlFor='showPassword'>Mostrar senha</S.Label>
+            </S.DivSeePassword>
             <S.Div>
                 <Link href={"/cadastro"}>
                     <S.Link>Cadastre-se</S.Link>
                 </Link>
-               <S.Button>Continue</S.Button>
+               <S.Button>{isLoading ? 'Carregando...' : 'Login'}</S.Button>
             </S.Div>
-            {isLoading && <p>Carregando...</p>}
         </S.Form>
     )
 }
