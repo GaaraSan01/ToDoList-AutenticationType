@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Form = styled.form`
-    height: 350px;
+    min-height: 350px;
     width: 320px;
     border-radius: 10px;
     background: var(--secundary-color);
@@ -85,4 +85,11 @@ export const Span = styled.span`
     color: red;
     font-size: 12px;
     padding-left: 25px;
+`
+
+export const Error = styled.p`
+    padding: 10px 0;
+    font-weight: 600;
+    text-align: center;
+    color: red;
 `

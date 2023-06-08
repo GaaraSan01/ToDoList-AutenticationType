@@ -4,8 +4,12 @@ import { string, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginData } from '@/app/types/typesUser';
-import { LoginTodoList } from '@/app/hooks/useLogin';
 import { useState } from 'react';
+import baseUrl from '@/app/api/_api';
+import { setCookie } from 'nookies';
+import { useRouter } from 'next/navigation';
+import {useMutation, useQueryClient} from 'react-query'
+
 
 const FormLogin = () => {
 
@@ -20,12 +24,44 @@ const FormLogin = () => {
         resolver: zodResolver(loginUserSchema)
     })
     const [showPass, setShowPass] = useState(true)
+    const [isErrorMessage, setIsErrorMessage] = useState('')
 
-    const {mutate, isLoading} = LoginTodoList()
-
-    async function loginUser ({email, password}: loginData) {
+    const loginUser = async({email, password}: loginData) => {
+    
+        const response = await baseUrl.post('/login',{
+            email,
+            password
+        })
+        const { token } = response.data
+    
+        if(token){
+            baseUrl.defaults.headers['Authorization'] = `Bearer ${token}`;
+        }
         
-        mutate({email,password})
+        setCookie(undefined, 'todo-token', token, {
+            maxAge: 60 * 60 * 1 // 1h hora
+        })
+    }
+    function LoginTodoList(){
+        const { push } = useRouter()
+        const queryClient = useQueryClient()
+        const mutate = useMutation({
+            mutationFn: loginUser,
+            onSuccess: () => {
+                queryClient.invalidateQueries(['task-data'])
+                push('/layout')
+            },
+            onError: (error: any) => {
+                const {MessageError} = error.response?.data || 'Error no servidor!'
+                setIsErrorMessage(MessageError)
+            }
+        })
+        return mutate
+    }
+
+    const {mutate, isError, isLoading} = LoginTodoList()
+    const loginUserConfirm = ({email, password}: loginData) => {
+        mutate({email, password})
     }
 
     const checkShowPass = () => {
@@ -33,7 +69,7 @@ const FormLogin = () => {
     }
 
     return(
-        <S.Form onSubmit={handleSubmit(loginUser)}>
+        <S.Form onSubmit={handleSubmit(loginUserConfirm)}>
             <S.Title>Login</S.Title>
             <S.Div>
                <S.Input
@@ -65,6 +101,7 @@ const FormLogin = () => {
                 </Link>
                <S.Button>{isLoading ? 'Carregando...' : 'Login'}</S.Button>
             </S.Div>
+            {isError && <S.Error>{isErrorMessage}</S.Error>}
         </S.Form>
     )
 }
