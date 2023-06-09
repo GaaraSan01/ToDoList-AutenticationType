@@ -13,12 +13,14 @@ const FormTask = () => {
     })
 
     type TypePostTask = z.infer<typeof postSchemaTask>
-    const {register, handleSubmit} = useForm<TypePostTask>()
+    const {register, handleSubmit, setValue} = useForm<TypePostTask>()
 
     const {mutate} = useMutateTask()
 
     const postTask = (data: TypeTask) => {
         mutate(data)
+        setValue('title', '')
+        setValue('description', '')
     }
     
     return(

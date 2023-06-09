@@ -15,15 +15,17 @@ const Task = ({id, title, description, status}: TypeTask) => {
         description: string(),
         status: string()
     })
-
     type TypeSchemaTask = z.infer<typeof editSchemaTask>
 
-    const { register, handleSubmit } = useForm<TypeSchemaTask>()
+    const { register, handleSubmit, setValue } = useForm<TypeSchemaTask>()
     const { mutate } = EditTask()
     const deleted = DeletedTask() 
 
     const editTask = () => {
         setEdit(!edit)
+
+        setValue('title', title)
+        setValue('description', description)
     }
 
     const editTaskUpate = ({title, description, status}: TypeTask) => {
