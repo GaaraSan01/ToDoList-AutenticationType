@@ -55,7 +55,7 @@ const Task = ({id, title, description, status}: TypeTask) => {
                             <option value="Em andamento">Em andamento</option>
                             <option value="Finalizado">Finalizado</option>
                         </S.Select>
-                        <S.Button>+</S.Button>
+                        <S.Button>✔</S.Button>
                     </S.EditTask>
                 </>}
                 {!edit && <>

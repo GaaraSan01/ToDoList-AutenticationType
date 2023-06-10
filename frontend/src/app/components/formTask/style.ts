@@ -1,7 +1,17 @@
 import styled from "styled-components";
 
+export const Div = styled.div`
+    height: 100%;
+    width: calc(100% - 55px);
+    display: flex;
+    gap: 10px;
+    @media(max-width: 640px){
+        flex-direction: column;
+    }
+`
+
 export const Form = styled.form`
-    height: 10vh;
+    min-height: 10vh;
     width: 90%;
     margin: auto;
     padding: 20px;
@@ -10,7 +20,7 @@ export const Form = styled.form`
     align-items: center;
     gap: 10px;
 
-    @media(max-width: 640){
+    @media(max-width: 640px){
         width: 95%;
         padding: 10px;
     }
@@ -47,5 +57,8 @@ export const Button = styled.button`
     :hover{
         background: var(--secundary-color);
         color: var(--primary-color);
+    }
+    @media(max-width: 680px){
+        height: 100px;
     }
 `;
