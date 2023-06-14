@@ -30,11 +30,13 @@ const FormTask = () => {
                     <S.Input 
                         type='text' 
                         placeholder='Digite o titulo da tarefa...'
+                        autoComplete='off'
                         {...register('title')}
                     />
                     <S.Input 
                         type='text' 
                         placeholder='Digite a descrição da tarefa...'
+                        autoComplete='off'
                         {...register('description')}
                     />
                 </S.Div>

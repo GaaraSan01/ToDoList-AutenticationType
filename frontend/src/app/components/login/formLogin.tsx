@@ -75,6 +75,7 @@ const FormLogin = () => {
                <S.Input
                     type='email' 
                     placeholder='Digite seu email...'
+                    autoComplete='off'
                     {...register('email')}
                /> 
             </S.Div>

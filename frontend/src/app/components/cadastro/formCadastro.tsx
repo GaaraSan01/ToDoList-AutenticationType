@@ -53,6 +53,7 @@ const CadastroForm = () => {
                     <S.Input 
                         type='text' 
                         placeholder='Digite seu nome...'
+                        autoComplete='off'
                         {...register('name')}
                     />
                 </S.Div>
@@ -61,6 +62,7 @@ const CadastroForm = () => {
                     <S.Input 
                         type='email' 
                         placeholder='Digite seu e-mail...'
+                        autoComplete='off'
                         {...register('email')}
                     />
                 </S.Div>
